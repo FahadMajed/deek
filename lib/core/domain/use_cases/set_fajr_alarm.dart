@@ -1,6 +1,4 @@
-import 'package:reach_core/core/core.dart' hide NotificationsService, User;
-
-import 'package:deek/core/core.dart';
+import 'package:deek/lib.dart';
 
 class SetFajrAlarm extends UseCase<SetFajrAlarmResponse, SetFajrAlarmRequest> {
   final PrayerTimeRepository prayerTimeRepository;
@@ -18,7 +16,7 @@ class SetFajrAlarm extends UseCase<SetFajrAlarmResponse, SetFajrAlarmRequest> {
     final user = await userRepository.getById("1");
 
     final fajrTimes =
-        await prayerTimeRepository.getFajrTimesFor2Months(user.address);
+        await prayerTimeRepository.getFajrTimesFor2Months(user.position);
 
     final fajrTimeWithVariant = fajrTimes
         .map((time) => time.applyVariant(request.minutesVariant))
@@ -51,3 +49,11 @@ class SetFajrAlarmResponse {
     required this.updatedUser,
   });
 }
+
+final setFajrAlarmPvdr = Provider(
+  (ref) => SetFajrAlarm(
+    prayerTimeRepository: ref.read(prayerRepoPvdr),
+    notificationsService: ref.read(notificationsSrvcPvdr),
+    userRepository: ref.read(userRepoPvdr),
+  ),
+);

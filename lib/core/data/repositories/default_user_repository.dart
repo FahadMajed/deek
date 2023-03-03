@@ -3,9 +3,8 @@
 import 'package:deek/lib.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:reach_core/core/utilities/base_classes/remote_database.dart';
 
-class DefaultUserRepositiry implements UserRepository {
+class DefaultUserRepository implements UserRepository {
   Box get _userBox => Hive.box("user");
 
   @override
@@ -35,4 +34,14 @@ class DefaultUserRepositiry implements UserRepository {
   Future<void> update(User object, String id) async {
     _userBox.put(id, object.toMap());
   }
+
+  @override
+  // TODO: implement collection
+  Map<String, User> get collection => throw UnimplementedError();
+
+  @override
+  // TODO: implement subCollection
+  Map<String, void> get subCollection => throw UnimplementedError();
 }
+
+final userRepoPvdr = Provider((ref) => DefaultUserRepository());

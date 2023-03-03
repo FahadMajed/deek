@@ -1,5 +1,6 @@
 import 'package:deek/core/domain/models/address.dart';
+import 'package:deek/lib.dart';
 
 abstract class LocationRepository {
-  Future<Address> getCurrentAddress();
+  Future<LongLat> getCurrentPosition();
 }

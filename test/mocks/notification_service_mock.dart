@@ -1,4 +1,4 @@
-import 'package:deek/core/core.dart';
+import 'package:deek/lib.dart';
 import 'package:mockito/mockito.dart';
 
 final notificationServiceMock = NotificationServiceMock();

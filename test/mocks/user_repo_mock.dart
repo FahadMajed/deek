@@ -1,6 +1,4 @@
-import 'package:deek/core/domain/contracts/user_repository.dart';
-import 'package:reach_core/core/utilities/base_classes/remote_database.dart';
-import 'package:deek/core/domain/models/user.dart';
+import 'package:deek/core/core.dart';
 
 final userRepoFake = UserRepoMock();
 
@@ -33,4 +31,12 @@ class UserRepoMock implements UserRepository {
   Future<void> update(User object, String id) async {
     user = object;
   }
+
+  @override
+  // TODO: implement collection
+  Map<String, User> get collection => throw UnimplementedError();
+
+  @override
+  // TODO: implement subCollection
+  Map<String, void> get subCollection => throw UnimplementedError();
 }

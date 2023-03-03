@@ -1,23 +1,15 @@
 import 'package:deek/lib.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 class DefaultLocationRepository implements LocationRepository {
-  final Geolocator geolocator;
-
-  DefaultLocationRepository({
-    required this.geolocator,
-  });
-
   //API
   @override
-  Future<Address> getCurrentAddress() async {
+  Future<LongLat> getCurrentPosition() async {
     await _getPermission();
 
     final longLat = await _getCurrentDevicePosition();
-    final city = _getAddressByLongLat(longLat);
 
-    return city;
+    return longLat;
   }
 
   Future _getPermission() async {
@@ -39,15 +31,7 @@ class DefaultLocationRepository implements LocationRepository {
       position.latitude,
     );
   }
-
-  Future<Address> _getAddressByLongLat(LongLat longLat) async {
-    final placeMarks =
-        await placemarkFromCoordinates(longLat.long, longLat.lat);
-    final placeMark = placeMarks.first;
-    final city = placeMark.locality;
-    if (city == null) {
-      Exception("CITY NOT FOUND");
-    }
-    return Address.fromJson(placeMark.toJson().toString());
-  }
 }
+
+final locationRepoPvdr =
+    Provider<LocationRepository>((ref) => DefaultLocationRepository());

@@ -1,4 +1,4 @@
-import 'package:deek/core/core.dart';
+import 'package:deek/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,7 +8,12 @@ void main() {
   setUp(() async => WidgetsFlutterBinding.ensureInitialized());
 
   test('should ask for permission and returns user updated city', () async {
-    final user = User(address: Address.fromMap({}), id: "1");
+    final user = User(
+        position: LongLat(
+          0,
+          0,
+        ),
+        id: "1");
 
     final updatedUser = await SetUserCurrentLocation(
       locationRepository: locationRepoMock,
@@ -18,6 +23,9 @@ void main() {
     final repoUser = userRepoFake.user;
     assert(repoUser == updatedUser);
 
-    expect(updatedUser.address.city.toLowerCase(), "riyadh");
+    expect(
+      updatedUser.position.long,
+      -0.1254872,
+    );
   });
 }

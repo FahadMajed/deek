@@ -1,4 +1,4 @@
-import 'package:deek/core/core.dart';
+import 'package:deek/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'mocks/notification_service_mock.dart';
@@ -9,14 +9,11 @@ void main() {
   setUp(
     () => userRepoFake.create(
         User(
-          id: "1",
-          address: Address(
-            street: "",
-            city: "riyadh",
-            state: "riyadh",
-            country: "riyadh",
-          ),
-        ),
+            id: "1",
+            position: LongLat(
+              -0.1254872,
+              51.508515,
+            )),
         "1"),
   );
   test('should set alarm on fajr athan', () async {

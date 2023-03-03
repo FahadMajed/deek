@@ -10,7 +10,7 @@ void main() {
     Hive.init(path);
     await Hive.openBox("user");
   });
-  final hiveUserRepo = DefaultUserRepositiry();
+  final hiveUserRepo = DefaultUserRepository();
   test('should save user in box', () async {
     await CreateUser(hiveUserRepo).call();
     final user = await hiveUserRepo.getById("1");
@@ -19,18 +19,10 @@ void main() {
 
   test('should update user in box', () async {
     final user = await hiveUserRepo.getById("1");
-    assert(user.address.state != "SAUDI");
-    await hiveUserRepo.update(
-        User(
-            address: Address(
-              city: "SAUDI",
-              country: '',
-              state: '',
-              street: '',
-            ),
-            id: "1"),
-        "1");
+
+    assert(user.position.long != 20);
+    await hiveUserRepo.update(User(position: LongLat(20, 20), id: "1"), "1");
     final updatedUser = await hiveUserRepo.getById("1");
-    expect(updatedUser.address.city, "SAUDI");
+    expect(updatedUser.position.long, 21);
   });
 }

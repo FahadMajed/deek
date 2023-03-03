@@ -1,5 +1,3 @@
-import 'package:reach_core/core/core.dart' hide User;
-
 import 'package:deek/lib.dart';
 
 //Called every time app is opened
@@ -28,3 +26,8 @@ class MarkAlarmSeen extends NoRequestUseCase<User> {
     return updatedUser;
   }
 }
+
+final markAlarmSeenPvdr = Provider((ref) => MarkAlarmSeen(
+      userRepository: ref.read(userRepoPvdr),
+      setFajrAlarm: ref.read(setFajrAlarmPvdr),
+    ));

@@ -1,4 +1,3 @@
-import 'package:deek/core/domain/use_cases/mark_alarm_seen.dart';
 import 'package:deek/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +8,7 @@ import 'mocks/user_repo_mock.dart';
 void main() async {
   await userRepoFake.create(
     User(
-      address: Address.fromMap({}),
+      position: LongLat.fromMap({}),
       id: "1",
     ),
     "1",

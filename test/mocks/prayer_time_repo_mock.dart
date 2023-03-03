@@ -3,7 +3,7 @@ import 'package:mockito/mockito.dart';
 
 class PrayerTimeRepoMock extends Mock implements PrayerTimeRepository {
   @override
-  Future<List<PrayerTime>> getFajrTimesFor2Months(Address address) async => [
+  Future<List<PrayerTime>> getFajrTimesFor2Months(LongLat address) async => [
         PrayerTime(
           id: 1,
           dateTime: DateTime(2022, 1, 1, 5, 10),

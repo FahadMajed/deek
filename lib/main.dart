@@ -1,19 +1,20 @@
+import 'package:deek/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sizer/sizer.dart';
 
-void main() {
-  runApp(const Deek());
-}
+import 'app_entry.dart';
 
-class Deek extends StatelessWidget {
-  const Deek({super.key});
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox("user");
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+  runApp(
+    Sizer(
+      builder: (_, __, ___) => const ProviderScope(
+        overrides: [],
+        child: DeekEntry(),
       ),
-    );
-  }
+    ),
+  );
 }

@@ -1,4 +1,6 @@
-import 'package:deek/core/core.dart';
+import 'package:deek/lib.dart';
+
+import 'package:rest_api/http_rest_client.dart';
 import 'package:rest_api/rest_client.dart';
 
 class HttpPrayerTimeRepository implements PrayerTimeRepository {
@@ -7,7 +9,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
   HttpPrayerTimeRepository(this.client);
 
   @override
-  Future<List<PrayerTime>> getFajrTimesFor2Months(Address address) async {
+  Future<List<PrayerTime>> getFajrTimesFor2Months(LongLat position) async {
     final List<PrayerTime> fajrPrayerTimes = [];
 
     final currentDate = DateTime.now();
@@ -18,7 +20,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
       await _getFajrTimesForMonth(
         year: currentYear,
         month: currentMonth,
-        address: address,
+        position: position,
         idStartsAt: 0,
       ),
     );
@@ -31,7 +33,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
       await _getFajrTimesForMonth(
         year: yearAfterMonth,
         month: monthAfterMonth,
-        address: address,
+        position: position,
         idStartsAt: fajrPrayerTimes.length + 1,
       ),
     );
@@ -42,7 +44,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
   Future<List<PrayerTime>> _getFajrTimesForMonth({
     required int year,
     required int month,
-    required Address address,
+    required LongLat position,
     required int idStartsAt,
   }) async {
     final List<PrayerTime> fajrPrayerTimesForMonth = [];
@@ -50,7 +52,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
     final responseForMonth = await client.call(
       RESTOption.get,
       path:
-          "calendarByCity/$year/$month?city=${address.city}&country=${address.country}&method=4",
+          "calendar/$year/$month?latitude=${position.lat}&longitude=${position.long}&method=4",
     ); // returns prayer times for the month and year
 
     final List<DateTime> fajrTimes = _parseReponse(
@@ -97,3 +99,12 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
     return fajrTimes;
   }
 }
+
+final prayerRepoPvdr = Provider<PrayerTimeRepository>(
+  (ref) => HttpPrayerTimeRepository(
+    HttpRESTClient(
+      baseUrl: "http://api.aladhan.com/v1/",
+      headers: {},
+    ),
+  ),
+);
