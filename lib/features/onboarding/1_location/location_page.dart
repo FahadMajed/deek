@@ -13,7 +13,7 @@ class LocationPage extends ConsumerWidget {
       label: 'الموقع',
       desc: 'بنحتاج موقعك عشان نحدد وقت صلاة الفجر بمدينتك',
       buttonTitle: 'طلب السماح بالموقع',
-      onPressed: viewController.onRequestPermission,
+      onPressed: viewController.onActionButtonPressed,
     );
   }
 }

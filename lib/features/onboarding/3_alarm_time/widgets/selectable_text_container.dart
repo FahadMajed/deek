@@ -1,4 +1,5 @@
 import 'package:deek/core/core.dart';
+import 'package:deek/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class SelectableTextContainer extends StatelessWidget {
@@ -21,12 +22,13 @@ class SelectableTextContainer extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-            color: isChosen ? secondaryColor : Colors.white,
+            color: isChosen ? secondayColor : Colors.grey,
             borderRadius: radius,
             border: Border.all(color: Colors.black, width: 0.5)),
         child: Center(
           child: Text(
             text,
+            style: const TextStyle(color: Colors.white),
             overflow: TextOverflow.ellipsis,
           ),
         ),

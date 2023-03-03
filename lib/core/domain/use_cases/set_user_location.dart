@@ -1,6 +1,6 @@
 import 'package:deek/lib.dart';
 
-class SetUserCurrentLocation extends UseCase<User, User> {
+class SetUserCurrentLocation extends NoRequestUseCase<User> {
   final LocationRepository locationRepository;
   final UserRepository userRepository;
   SetUserCurrentLocation({
@@ -9,10 +9,12 @@ class SetUserCurrentLocation extends UseCase<User, User> {
   });
 
   @override
-  Future<User> call(User user) async {
+  Future<User> call() async {
+    final user = await userRepository.getById("1");
     final position = await locationRepository.getCurrentPosition();
     final updatedUser = user.copyWith(position: position);
-    userRepository.update(updatedUser, user.id);
+    print(updatedUser);
+    await userRepository.update(updatedUser, user.id);
     return updatedUser;
   }
 }

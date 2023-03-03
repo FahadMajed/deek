@@ -1,17 +1,18 @@
 import 'package:deek/lib.dart';
 
-class LocationViewController extends AsyncViewController<User>
-    with PageViewController {
+class LocationViewController extends OnboardingViewController {
   late final SetUserCurrentLocation setUserCurrentLocation;
-  LocationViewController(super.read) : super(viewModelPvdr: userPvdr) {
+  LocationViewController(super.read) {
     setUserCurrentLocation = read(setUserLocationPvdr);
   }
 
-  Future<void> onRequestPermission() async {
-    final updatedUser = await setUserCurrentLocation.call(viewModelAsData);
+  @override
+  Future<void> onActionButtonPressed() async {
+    showNextPage();
 
-    emitData(updatedUser);
-    incrementPage();
+    await setUserCurrentLocation
+        .call()
+        .then((updatedUser) => emitData(updatedUser));
   }
 }
 

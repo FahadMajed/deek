@@ -8,17 +8,10 @@ void main() {
   setUp(() async => WidgetsFlutterBinding.ensureInitialized());
 
   test('should ask for permission and returns user updated city', () async {
-    final user = User(
-        position: LongLat(
-          0,
-          0,
-        ),
-        id: "1");
-
     final updatedUser = await SetUserCurrentLocation(
       locationRepository: locationRepoMock,
       userRepository: userRepoFake,
-    ).call(user);
+    ).call();
 
     final repoUser = userRepoFake.user;
     assert(repoUser == updatedUser);

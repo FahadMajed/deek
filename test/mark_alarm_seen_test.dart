@@ -6,11 +6,12 @@ import 'mocks/prayer_time_repo_mock.dart';
 import 'mocks/user_repo_mock.dart';
 
 void main() async {
+  final user = User(
+    position: LongLat.fromMap({}),
+    id: "1",
+  );
   await userRepoFake.create(
-    User(
-      position: LongLat.fromMap({}),
-      id: "1",
-    ),
+    user,
     "1",
   );
 
@@ -19,8 +20,8 @@ void main() async {
     notificationsService: notificationServiceMock,
     userRepository: userRepoFake,
   );
-  setUp(() async =>
-      await setFajrAlarm.call(SetFajrAlarmRequest(minutesVariant: 0)));
+  setUp(() async => await setFajrAlarm
+      .call(SetFajrAlarmRequest(user: user, minutesVariant: 0)));
 
   test('should remove current alarm', () async {
     final user = await userRepoFake.getById("1");

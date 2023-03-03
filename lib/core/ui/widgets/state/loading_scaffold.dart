@@ -7,8 +7,6 @@ class LoadingScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      title: "Loading",
-      withWhiteContainer: true,
       body: const [Loading()],
     );
   }

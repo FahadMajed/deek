@@ -63,7 +63,7 @@ const titleSmallBold = TextStyle(
 const titleMidBold = TextStyle(
   color: Colors.black,
   fontSize: 16,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w600,
 );
 
 const titleLargeBold = TextStyle(

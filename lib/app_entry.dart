@@ -1,21 +1,32 @@
+import 'package:deek/features/home/home.dart';
 import 'package:deek/lib.dart';
 import 'package:deek/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-class DeekEntry extends StatelessWidget {
+class DeekEntry extends ConsumerWidget {
   const DeekEntry({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final user = ref.watch(userPvdr);
+
     return GetMaterialApp(
       locale: const Locale("ar", "SA"),
       navigatorObservers: [
         routeObserver,
       ],
-      onInit: () {},
+      onInit: () async {
+        final read = ref.read;
+        read(userPvdr.notifier).state =
+            AsyncData(await read(markAlarmSeenPvdr)());
+      },
       debugShowCheckedModeBanner: false,
       theme: getThemeData(),
-      home: const DeekLanding(),
+      home: user.isLoading
+          ? const LoadingScaffold()
+          : user.value?.hasAlarms ?? false
+              ? const HomeScreen()
+              : const DeekLanding(),
     );
   }
 

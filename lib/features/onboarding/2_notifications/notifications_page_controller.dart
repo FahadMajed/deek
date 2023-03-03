@@ -1,15 +1,15 @@
 import 'package:deek/lib.dart';
 
-class NotificationsViewController extends AsyncViewController<User>
-    with PageViewController {
+class NotificationsViewController extends OnboardingViewController {
   late final NotificationsService notificationsService;
 
-  NotificationsViewController(super.read) : super(viewModelPvdr: userPvdr) {
+  NotificationsViewController(super.read) {
     notificationsService = read(notificationsSrvcPvdr);
   }
 
-  Future<void> onRequestPermission() async {
-    await notificationsService.requestPermission().then((_) => incrementPage());
+  @override
+  Future<void> onActionButtonPressed() async {
+    await notificationsService.requestPermission().then((_) => showNextPage());
   }
 }
 

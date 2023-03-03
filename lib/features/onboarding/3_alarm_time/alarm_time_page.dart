@@ -8,28 +8,34 @@ class AlarmTimePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewController = ref.watch(alarmTimeViewCtrlPvdr);
     final selectedIndex = ref.watch(selectedMinVariationIndexPvdr);
+
     return OnboardingPage(
       label: 'وقت المنبة',
-      iconData: Icons.notifications,
+      iconData: Icons.alarm,
       desc: 'متى حاب منبهك يرن؟',
       buttonTitle: 'ضبط المنبة',
-      widget: Flex(
-        direction: Axis.horizontal,
+      widget: Column(
         children: [
-          //page e.g. Days, element e.g. Sun
-          for (final element in miniuteVariations)
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    right: element == miniuteVariations.last ? 0 : 2.0),
-                child: SelectableTextContainer(
-                  onTap: () => viewController
-                      .onAlarmTimeChanged(miniuteVariations.indexOf(element)),
-                  isChosen: selectedIndex == element,
-                  text: _getVariationName(element),
+          Flex(
+            direction: Axis.horizontal,
+            children: [
+              for (final element in miniuteVariations)
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: element == miniuteVariations.last ? 0 : 4.0),
+                    child: SelectableTextContainer(
+                      onTap: () => viewController.onAlarmTimeChanged(
+                          miniuteVariations.indexOf(element)),
+                      isChosen: miniuteVariations[selectedIndex] == element,
+                      text:
+                          _getVariationName(miniuteVariations.indexOf(element)),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+            ],
+          ),
+          sizedHeight32,
         ],
       ),
       onPressed: viewController.onSetAlarm,

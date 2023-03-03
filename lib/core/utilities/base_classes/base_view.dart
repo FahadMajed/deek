@@ -17,7 +17,7 @@ abstract class View extends ConsumerStatefulWidget {
 }
 
 abstract class ViewState<V extends View, ViewModel,
-    Controller extends ViewController<ViewModel>> extends ConsumerState<V> {
+    Controller extends ViewController> extends ConsumerState<V> {
   final ProviderBase<ViewModel> viewModelPvdr;
   final ProviderBase<Controller> controllerPvdr;
 

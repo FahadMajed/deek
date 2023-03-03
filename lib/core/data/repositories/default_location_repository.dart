@@ -24,8 +24,9 @@ class DefaultLocationRepository implements LocationRepository {
 
   Future<LongLat> _getCurrentDevicePosition() async {
     final position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.lowest,
+      desiredAccuracy: LocationAccuracy.best,
     );
+
     return LongLat(
       position.longitude,
       position.latitude,

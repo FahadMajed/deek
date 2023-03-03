@@ -1,3 +1,4 @@
 import 'package:deek/lib.dart';
 
-final userPvdr = StateProvider((ref) => AsyncData(User.empty()));
+final userPvdr =
+    StateProvider<AsyncValue<User>>((ref) => AsyncData(User.empty()));

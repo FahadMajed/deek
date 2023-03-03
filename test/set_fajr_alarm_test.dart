@@ -6,18 +6,18 @@ import 'mocks/prayer_time_repo_mock.dart';
 import 'mocks/user_repo_mock.dart';
 
 void main() {
+  final user = User(
+      id: "1",
+      position: LongLat(
+        -0.1254872,
+        51.508515,
+      ));
   setUp(
-    () => userRepoFake.create(
-        User(
-            id: "1",
-            position: LongLat(
-              -0.1254872,
-              51.508515,
-            )),
-        "1"),
+    () => userRepoFake.create(user, "1"),
   );
   test('should set alarm on fajr athan', () async {
     final request = SetFajrAlarmRequest(
+      user: user,
       minutesVariant: 0,
     );
 
@@ -38,6 +38,7 @@ void main() {
 
   test('should set alarm on fajr athan +5', () async {
     final request = SetFajrAlarmRequest(
+      user: user,
       minutesVariant: 5,
     );
 
@@ -56,6 +57,7 @@ void main() {
 
   test('should set alarm on fajr athan -5', () async {
     final request = SetFajrAlarmRequest(
+      user: user,
       minutesVariant: -5,
     );
 

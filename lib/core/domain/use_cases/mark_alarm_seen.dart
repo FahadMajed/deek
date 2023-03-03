@@ -19,6 +19,7 @@ class MarkAlarmSeen extends NoRequestUseCase<User> {
 
     if (updatedUser.reachedAlarmLimit()) {
       final response = await setFajrAlarm.call(SetFajrAlarmRequest(
+        user: user,
         minutesVariant: user.prefferedMinutesVariant,
       ));
       return response.updatedUser;

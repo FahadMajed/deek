@@ -27,20 +27,15 @@ class LocalNotificationsService implements NotificationsService {
     final InitializationSettings initializationSettings =
         InitializationSettings(iOS: initializationSettingsIOS);
 
-    await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveBackgroundNotificationResponse: (response) async {
-      final didNotificationLaunchApp =
-          await _checkOfNotificationLaunchedTheApp();
-
-      didNotificationLaunchApp
-          ? onNotificationSelectedAndLaunchedTheApp?.call()
-          : onNotificationSelected?.call();
-    });
+    await notificationsPlugin.initialize(
+      initializationSettings,
+    );
   }
 
   @override
   Future<void> scheduleFajrAlarms(List<PrayerTime> fajrTimes) async {
-    notificationsPlugin.pendingNotificationRequests();
+    await notificationsPlugin.cancelAll();
+
     tz.initializeTimeZones();
     for (final fajrTime in fajrTimes) {
       notificationsPlugin.zonedSchedule(
@@ -63,7 +58,7 @@ class LocalNotificationsService implements NotificationsService {
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
-        sound: 'alarm_sound.mp3',
+        sound: 'alarm_sound.wav',
       ),
     );
   }

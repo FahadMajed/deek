@@ -9,12 +9,13 @@ class DefaultUserRepository implements UserRepository {
 
   @override
   Future<void> create(User object, String id) async {
-    _userBox.put(id, object.toMap());
+    await delete("1");
+    await _userBox.put(id, object.toMap());
   }
 
   @override
-  Future<void> delete(String id) {
-    throw UnimplementedError();
+  Future<void> delete(String id) async {
+    await _userBox.delete(id);
   }
 
   @override
@@ -24,7 +25,9 @@ class DefaultUserRepository implements UserRepository {
 
   @override
   Future<User> getById(String id) async {
-    return User.fromMap(_userBox.values.first);
+    final user = User.fromMap(_userBox.values.first);
+    print(user);
+    return user;
   }
 
   @override
@@ -32,11 +35,10 @@ class DefaultUserRepository implements UserRepository {
 
   @override
   Future<void> update(User object, String id) async {
-    _userBox.put(id, object.toMap());
+    await _userBox.put(id, object.toMap());
   }
 
   @override
-  // TODO: implement collection
   Map<String, User> get collection => throw UnimplementedError();
 
   @override

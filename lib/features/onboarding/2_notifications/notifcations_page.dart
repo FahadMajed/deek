@@ -13,7 +13,7 @@ class NotificationsPage extends ConsumerWidget {
       iconData: Icons.notifications,
       desc: 'بنحتاج تسمح لنا بالتنبهيات عشان يرن منبهك بالوقت المناسب',
       buttonTitle: 'طلب السماح بالتنبيهات',
-      onPressed: viewController.onRequestPermission,
+      onPressed: viewController.onActionButtonPressed,
     );
   }
 }

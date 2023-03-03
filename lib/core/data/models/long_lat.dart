@@ -24,4 +24,7 @@ class LongLat {
 
   factory LongLat.fromJson(String source) =>
       LongLat.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'LongLat(long: $long, lat: $lat)';
 }

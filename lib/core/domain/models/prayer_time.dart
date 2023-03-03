@@ -30,7 +30,7 @@ class PrayerTime {
     };
   }
 
-  factory PrayerTime.fromMap(Map<String, dynamic> map) {
+  factory PrayerTime.fromMap(map) {
     return PrayerTime(
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] ?? 0),
       id: map['id']?.toInt() ?? 0,
