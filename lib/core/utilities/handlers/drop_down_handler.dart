@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_material_pickers/helpers/show_scroll_picker.dart';
+
 import 'package:get/route_manager.dart';
 
 import '../ui_utils/size.dart';
@@ -32,13 +32,14 @@ class DropDownHandler {
         },
       );
     } else {
-      return showMaterialScrollPicker(
-        context: Get.overlayContext!,
-        title: '',
-        items: items,
-        selectedItem: selectedItem,
-        onChanged: (value) => selectedItem = items[value],
-      );
+      return Future.value();
+      // return showMaterialScrollPicker(
+      //   context: Get.overlayContext!,
+      //   title: '',
+      //   items: items,
+      //   selectedItem: selectedItem,
+      //   onChanged: (value) => selectedItem = items[value],
+      // );
     }
   }
 }
