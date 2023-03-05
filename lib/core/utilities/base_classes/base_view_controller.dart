@@ -1,6 +1,6 @@
+import 'package:deek/lib.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 ///T is the view model state
 ///controller handles UI events and logic,
@@ -78,6 +78,9 @@ abstract class AsyncViewController<T> extends ViewController<AsyncValue<T>> {
 
   void emitLoading() => viewModel = const AsyncLoading();
   void emitData(T data) => viewModel = AsyncData(data);
+
+  User get user => read(userPvdr).value!;
+
   Future<bool> emitError(Object e) async {
     viewModel = AsyncError(e);
     return false;

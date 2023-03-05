@@ -5,14 +5,16 @@ class Toast {
   static void success(
     String message, {
     bool pop = false,
+    bool isModalOpen = false,
     int times = 1,
     Function()? toggler,
   }) {
-    final ctx = Get.context!;
+    final ctx = isModalOpen ? Get.overlayContext! : Get.context!;
     const onSuccess = TextStyle(
         color: Color.fromARGB(255, 11, 66, 13),
         fontSize: 14,
         fontWeight: FontWeight.w500);
+
     ScaffoldMessenger.of(ctx).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 4),

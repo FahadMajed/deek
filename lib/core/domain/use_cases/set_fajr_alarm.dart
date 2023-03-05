@@ -1,6 +1,6 @@
 import 'package:deek/lib.dart';
 
-class SetFajrAlarm extends UseCase<SetFajrAlarmResponse, SetFajrAlarmRequest> {
+class SetFajrAlarm extends UseCase<User, SetFajrAlarmRequest> {
   final PrayerTimeRepository prayerTimeRepository;
   final NotificationsService notificationsService;
   final UserRepository userRepository;
@@ -12,27 +12,19 @@ class SetFajrAlarm extends UseCase<SetFajrAlarmResponse, SetFajrAlarmRequest> {
   });
 
   @override
-  Future<SetFajrAlarmResponse> call(SetFajrAlarmRequest request) async {
+  Future<User> call(SetFajrAlarmRequest request) async {
     final user = request.user;
-    print(user);
+
     final fajrTimes =
         await prayerTimeRepository.getFajrTimesFor2Months(user.position);
 
-    final fajrTimeWithVariant = fajrTimes
-        .map((time) => time.applyVariant(request.minutesVariant))
-        .where((time) => time.isOutdated == false)
-        .toList();
+    final updatedUser = user.setFajrAlarms(fajrTimes, request.minutesVariant);
 
-    await notificationsService.scheduleFajrAlarms(fajrTimeWithVariant);
+    await notificationsService.scheduleFajrAlarms(updatedUser.upcomingAlarms);
 
-    final updatedUser = user.copyWith(
-      upcomingAlarms: fajrTimeWithVariant,
-      prefferedMinutesVariant: request.minutesVariant,
-    );
-    print(updatedUser);
     await userRepository.update(updatedUser, updatedUser.id);
 
-    return SetFajrAlarmResponse(updatedUser: updatedUser);
+    return updatedUser;
   }
 }
 
@@ -42,13 +34,6 @@ class SetFajrAlarmRequest {
   SetFajrAlarmRequest({
     required this.minutesVariant,
     required this.user,
-  });
-}
-
-class SetFajrAlarmResponse {
-  final User updatedUser;
-  SetFajrAlarmResponse({
-    required this.updatedUser,
   });
 }
 

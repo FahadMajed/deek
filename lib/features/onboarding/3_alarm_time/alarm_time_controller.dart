@@ -23,8 +23,8 @@ class AlarmTimeViewController extends AsyncViewController<User> {
       minutesVariant: minutesVariant,
       user: userRef,
     ))
-        .then((response) {
-      emitData(response.updatedUser);
+        .then((updatedUser) {
+      emitData(updatedUser);
       Get.to(const HomeScreen());
     });
   }

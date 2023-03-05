@@ -1,4 +1,3 @@
-import 'package:deek/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:deek/core/ui/theme/theme.dart';
 

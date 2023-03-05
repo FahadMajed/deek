@@ -1,5 +1,6 @@
-import 'package:deek/lib.dart';
 import 'package:flutter/material.dart';
+
+import 'package:deek/lib.dart';
 
 class AlarmTimePage extends ConsumerWidget {
   const AlarmTimePage({super.key});
@@ -10,52 +11,22 @@ class AlarmTimePage extends ConsumerWidget {
     final selectedIndex = ref.watch(selectedMinVariationIndexPvdr);
 
     return OnboardingPage(
-      label: 'وقت المنبة',
+      label: 'وقت المنبه',
       iconData: Icons.alarm,
       desc: 'متى حاب منبهك يرن؟',
-      buttonTitle: 'ضبط المنبة',
+      buttonTitle: 'ضبط المنبه',
       widget: Column(
         children: [
-          Flex(
-            direction: Axis.horizontal,
-            children: [
-              for (final element in miniuteVariations)
-                Flexible(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        left: element == miniuteVariations.last ? 0 : 4.0),
-                    child: SelectableTextContainer(
-                      onTap: () => viewController.onAlarmTimeChanged(
-                          miniuteVariations.indexOf(element)),
-                      isChosen: miniuteVariations[selectedIndex] == element,
-                      text:
-                          _getVariationName(miniuteVariations.indexOf(element)),
-                    ),
-                  ),
-                ),
-            ],
+          MinuteVariationPicker(
+            onChanged: (element) => viewController.onAlarmTimeChanged(
+              miniuteVariations.indexOf(element),
+            ),
+            selectedIndex: selectedIndex,
           ),
           sizedHeight32,
         ],
       ),
       onPressed: viewController.onSetAlarm,
     );
-  }
-
-  String _getVariationName(int element) {
-    switch (element) {
-      case 0:
-        return "-15د";
-      case 1:
-        return "-10د";
-      case 2:
-        return "مع الاذان";
-      case 3:
-        return "+10د";
-      case 4:
-        return "+15د";
-      default:
-        return "";
-    }
   }
 }

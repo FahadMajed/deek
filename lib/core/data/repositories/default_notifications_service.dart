@@ -34,13 +34,13 @@ class LocalNotificationsService implements NotificationsService {
 
   @override
   Future<void> scheduleFajrAlarms(List<PrayerTime> fajrTimes) async {
-    await notificationsPlugin.cancelAll();
+    await turnOffAlarms();
 
     tz.initializeTimeZones();
     for (final fajrTime in fajrTimes) {
       notificationsPlugin.zonedSchedule(
         fajrTime.id,
-        "منبة الفجر",
+        "منبه الفجر",
         "الصلاة خير من النوم",
         tz.TZDateTime.from(fajrTime.dateTime, tz.local),
         _notificationDetails(),
@@ -68,6 +68,11 @@ class LocalNotificationsService implements NotificationsService {
         await notificationsPlugin.getNotificationAppLaunchDetails();
 
     return notificationAppLaunchDetails?.didNotificationLaunchApp ?? false;
+  }
+
+  @override
+  Future<void> turnOffAlarms() async {
+    await notificationsPlugin.cancelAll();
   }
 }
 

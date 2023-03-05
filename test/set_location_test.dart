@@ -11,7 +11,7 @@ void main() {
     final updatedUser = await SetUserCurrentLocation(
       locationRepository: locationRepoMock,
       userRepository: userRepoFake,
-    ).call();
+    ).call(User.empty());
 
     final repoUser = userRepoFake.user;
     assert(repoUser == updatedUser);

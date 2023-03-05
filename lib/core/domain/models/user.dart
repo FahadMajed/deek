@@ -61,14 +61,9 @@ class User {
   factory User.fromJson(String source) => User.fromMap(json.decode(source));
 
   User removeOutdatedAlarms() {
-    final upcomingAlarms = <PrayerTime>[];
-    for (final alarm in this.upcomingAlarms) {
-      if (alarm.isOutdated == false) {
-        upcomingAlarms.add(alarm);
-      }
-    }
-
-    return copyWith(upcomingAlarms: upcomingAlarms);
+    return copyWith(
+        upcomingAlarms: upcomingAlarms
+          ..removeWhere((alarm) => alarm.isOutdated));
   }
 
   bool reachedAlarmLimit() => upcomingAlarms.length <= 3;
@@ -102,5 +97,19 @@ class User {
         id.hashCode ^
         upcomingAlarms.hashCode ^
         prefferedMinutesVariant.hashCode;
+  }
+
+  User turnOffAlarms() => copyWith(upcomingAlarms: []);
+
+  User setFajrAlarms(List<PrayerTime> fajrTimes, int minutesVariant) {
+    final fajrTimesWithVariant = fajrTimes
+        .map((time) => time.applyVariant(minutesVariant))
+        .where((time) => time.isOutdated == false)
+        .toList();
+
+    return copyWith(
+      prefferedMinutesVariant: minutesVariant,
+      upcomingAlarms: fajrTimesWithVariant,
+    );
   }
 }

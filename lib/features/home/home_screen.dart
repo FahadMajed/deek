@@ -1,8 +1,5 @@
-import 'package:deek/features/home/home_controller.dart';
-import 'package:deek/features/home/home_presenter.dart';
-import 'package:deek/features/home/home_view_model.dart';
 import 'package:deek/lib.dart';
-import 'package:deek/theme/colors.dart';
+
 import 'package:flutter/material.dart';
 
 class _HomeScreen extends ViewState<HomeScreen, AsyncValue<HomeViewModel>,

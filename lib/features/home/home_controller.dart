@@ -1,4 +1,6 @@
+import 'package:deek/features/settings/settings_modal.dart';
 import 'package:deek/lib.dart';
+import 'package:flutter/material.dart';
 
 class HomeViewController extends AsyncViewController<User> {
   late final UserRepository userRepository;
@@ -15,7 +17,13 @@ class HomeViewController extends AsyncViewController<User> {
     }
   }
 
-  onEdit() {}
+  void onEdit() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: Get.overlayContext!,
+      builder: (ctx) => const SettingsModal(),
+    );
+  }
 }
 
 final homeViewCtrlPvdr = Provider((ref) => HomeViewController(ref.read));

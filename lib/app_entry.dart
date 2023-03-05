@@ -1,6 +1,5 @@
-import 'package:deek/features/home/home.dart';
 import 'package:deek/lib.dart';
-import 'package:deek/theme/colors.dart';
+
 import 'package:flutter/material.dart';
 
 class DeekEntry extends ConsumerWidget {
@@ -24,7 +23,7 @@ class DeekEntry extends ConsumerWidget {
       theme: getThemeData(),
       home: user.isLoading
           ? const LoadingScaffold()
-          : user.value?.hasAlarms ?? false
+          : user.value != User.empty()
               ? const HomeScreen()
               : const DeekLanding(),
     );

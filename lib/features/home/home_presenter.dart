@@ -1,4 +1,3 @@
-import 'package:deek/features/home/home_view_model.dart';
 import 'package:deek/lib.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class HomePresenter implements Presenter<HomeViewModel> {
   HomeViewModel presentViewModel() {
     if (_userHasAlarms) {
       return HomeViewModel(
-        label: 'وقت المنبة',
+        label: 'وقت المنبه',
         iconData: Icons.alarm,
         alarmTime: _getAlarmTime(),
         alarmStatus:

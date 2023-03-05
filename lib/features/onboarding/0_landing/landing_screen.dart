@@ -1,6 +1,5 @@
-import 'package:deek/features/onboarding/0_landing/landing_controller.dart';
 import 'package:deek/lib.dart';
-import 'package:deek/theme/colors.dart';
+
 import 'package:flutter/material.dart';
 
 class DeekLanding extends ConsumerWidget {
@@ -28,7 +27,7 @@ class DeekLanding extends ConsumerWidget {
         SizedBox(
             height: 240, child: Image.asset("assets/images/logo no bg.png")),
         const Text(
-          'منبة صلاة فجر يفهمك',
+          'منبه صلاة فجر يفهمك',
           style: titleExtraLargeBold,
         ),
         const Spacer(

@@ -7,7 +7,8 @@ final snackBarTheme = SnackBarThemeData(
   behavior: SnackBarBehavior.floating,
   backgroundColor: Colors.white,
   elevation: 3,
-  contentTextStyle: const TextStyle(color: Colors.black),
+  contentTextStyle:
+      const TextStyle(color: Colors.black, fontFamily: "IBM-Sans"),
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(10),
   ),

@@ -11,7 +11,7 @@ class LocationViewController extends OnboardingViewController {
     showNextPage();
 
     await setUserCurrentLocation
-        .call()
+        .call(user)
         .then((updatedUser) => emitData(updatedUser));
   }
 }

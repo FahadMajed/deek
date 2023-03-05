@@ -21,18 +21,18 @@ void main() {
       minutesVariant: 0,
     );
 
-    final response = await SetFajrAlarm(
+    final updatedUser = await SetFajrAlarm(
       userRepository: userRepoFake,
       notificationsService: NotificationServiceMock(),
       prayerTimeRepository: PrayerTimeRepoMock(),
     ).call(request);
 
-    var upcomingAlarms2 = response.updatedUser.upcomingAlarms;
+    var upcomingAlarms2 = updatedUser.upcomingAlarms;
 
     expect(upcomingAlarms2.length, 6);
     expect(
       upcomingAlarms2.first.dateTime,
-      DateTime(2022, 1, 1, 5, 10),
+      DateTime(2024, 1, 1, 5, 10),
     );
   });
 
@@ -42,16 +42,16 @@ void main() {
       minutesVariant: 5,
     );
 
-    final response = await SetFajrAlarm(
+    final updatedUser = await SetFajrAlarm(
       userRepository: userRepoFake,
       notificationsService: NotificationServiceMock(),
       prayerTimeRepository: PrayerTimeRepoMock(),
     ).call(request);
 
-    expect(response.updatedUser.prefferedMinutesVariant, 5);
+    expect(updatedUser.prefferedMinutesVariant, 5);
     expect(
-      response.updatedUser.upcomingAlarms.first.dateTime,
-      DateTime(2022, 1, 1, 5, 15),
+      updatedUser.upcomingAlarms.first.dateTime,
+      DateTime(2024, 1, 1, 5, 15),
     );
   });
 
@@ -61,15 +61,15 @@ void main() {
       minutesVariant: -5,
     );
 
-    final response = await SetFajrAlarm(
+    final updatedUser = await SetFajrAlarm(
       userRepository: userRepoFake,
       notificationsService: NotificationServiceMock(),
       prayerTimeRepository: PrayerTimeRepoMock(),
     ).call(request);
 
     expect(
-      response.updatedUser.upcomingAlarms.first.dateTime,
-      DateTime(2022, 1, 1, 5, 5),
+      updatedUser.upcomingAlarms.first.dateTime,
+      DateTime(2024, 1, 1, 5, 5),
     );
   });
 }
