@@ -33,7 +33,7 @@ class LocalNotificationsService implements NotificationsService {
   }
 
   @override
-  Future<void> scheduleFajrAlarms(List<PrayerTime> fajrTimes) async {
+  Future<void> scheduleFajrAlarms(List<Alarm> fajrTimes) async {
     await turnOffAlarms();
 
     tz.initializeTimeZones();

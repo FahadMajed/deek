@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-class PrayerTime {
+class Alarm {
   DateTime dateTime;
   final int id;
-  PrayerTime({
+  Alarm({
     required this.dateTime,
     required this.id,
   });
@@ -12,8 +12,8 @@ class PrayerTime {
 
   ///[minutesVariant] is what the user want the alarm to vary upon, e.g. if it is
   ///five the alarm will ring after the athan by 5 seconds
-  PrayerTime applyVariant(int minutesVariant) {
-    return PrayerTime(
+  Alarm applyVariant(int minutesVariant) {
+    return Alarm(
         id: id,
         dateTime: dateTime.add(
           Duration(minutes: minutesVariant),
@@ -31,8 +31,8 @@ class PrayerTime {
     };
   }
 
-  factory PrayerTime.fromMap(map) {
-    return PrayerTime(
+  factory Alarm.fromMap(map) {
+    return Alarm(
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] ?? 0),
       id: map['id']?.toInt() ?? 0,
     );
@@ -40,11 +40,10 @@ class PrayerTime {
 
   String toJson() => json.encode(toMap());
 
-  factory PrayerTime.fromJson(String source) =>
-      PrayerTime.fromMap(json.decode(source));
+  factory Alarm.fromJson(String source) => Alarm.fromMap(json.decode(source));
 
-  PrayerTime removeVariant(int minutesVariant) {
-    return PrayerTime(
+  Alarm removeVariant(int minutesVariant) {
+    return Alarm(
         id: id,
         dateTime: dateTime.add(
           Duration(minutes: -1 * minutesVariant),
@@ -55,7 +54,7 @@ class PrayerTime {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is PrayerTime && other.dateTime == dateTime && other.id == id;
+    return other is Alarm && other.dateTime == dateTime && other.id == id;
   }
 
   @override

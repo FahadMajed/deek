@@ -7,7 +7,7 @@ void main() {
     position: LongLat(20, 20),
     id: "1",
     upcomingAlarms: [
-      PrayerTime(dateTime: DateTime.now(), id: 1),
+      Alarm(dateTime: DateTime.now(), id: 1),
     ],
     prefferedMinutesVariant: -15,
   );

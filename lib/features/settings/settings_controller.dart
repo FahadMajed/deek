@@ -50,7 +50,6 @@ class SettingsViewController extends AsyncViewController<User> {
       final updatedUser = await setFajrAlarm.call(
         SetFajrAlarmRequest(
           minutesVariant: userRef.prefferedMinutesVariant,
-          user: userRef,
         ),
       );
       emitData(updatedUser);
@@ -71,14 +70,12 @@ class SettingsViewController extends AsyncViewController<User> {
     final selectedIndex = read(selectedMinVariationIndexPvdr);
 
     final minutesVariant = miniuteVariations[selectedIndex];
-    final userRef = user;
 
     emitLoading();
     await editFajrAlarm
         .call(
       EditFajrAlarmRequest(
         minutesVariant: minutesVariant,
-        user: userRef,
       ),
     )
         .then((updatedUser) {
@@ -88,14 +85,12 @@ class SettingsViewController extends AsyncViewController<User> {
   }
 
   void _onChangeLocation() async {
-    final userRef = user;
     emitLoading();
-    final updatedUserLocation = await setUserCurrentLocation.call(userRef);
+    final updatedUser = await setUserCurrentLocation.call();
 
     await setFajrAlarm
         .call(SetFajrAlarmRequest(
-      minutesVariant: updatedUserLocation.prefferedMinutesVariant,
-      user: updatedUserLocation,
+      minutesVariant: updatedUser.prefferedMinutesVariant,
     ))
         .then((updatedUser) {
       emitData(updatedUser);

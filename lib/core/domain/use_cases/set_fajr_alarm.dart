@@ -14,16 +14,16 @@ class SetFajrAlarm extends UseCase<User, SetFajrAlarmRequest> {
 
   @override
   Future<User> call(SetFajrAlarmRequest request) async {
-    final user = request.user;
+    final user = await userRepository.getById("1");
 
     final fajrTimes =
         await prayerTimeRepository.getFajrTimesFor2Months(user.position);
 
     final updatedUser = user.setFajrAlarms(fajrTimes, request.minutesVariant);
 
-    await notificationsService.scheduleFajrAlarms(updatedUser.upcomingAlarms);
+    notificationsService.scheduleFajrAlarms(updatedUser.upcomingAlarms);
 
-    await userRepository.update(updatedUser, updatedUser.id);
+    userRepository.update(updatedUser, updatedUser.id);
 
     return updatedUser;
   }
@@ -31,10 +31,9 @@ class SetFajrAlarm extends UseCase<User, SetFajrAlarmRequest> {
 
 class SetFajrAlarmRequest {
   final int minutesVariant;
-  final User user;
+
   SetFajrAlarmRequest({
     required this.minutesVariant,
-    required this.user,
   });
 }
 

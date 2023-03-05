@@ -1,4 +1,3 @@
-import 'package:deek/features/home/home_screen.dart';
 import 'package:deek/lib.dart';
 
 class AlarmTimeViewController extends AsyncViewController<User> {
@@ -12,7 +11,6 @@ class AlarmTimeViewController extends AsyncViewController<User> {
   }
 
   Future<void> onSetAlarm() async {
-    final userRef = viewModelAsData;
     emitLoading();
     final selectedIndex = read(selectedMinVariationIndexPvdr);
 
@@ -21,7 +19,6 @@ class AlarmTimeViewController extends AsyncViewController<User> {
     await setFajrAlarm
         .call(SetFajrAlarmRequest(
       minutesVariant: minutesVariant,
-      user: userRef,
     ))
         .then((updatedUser) {
       emitData(updatedUser);

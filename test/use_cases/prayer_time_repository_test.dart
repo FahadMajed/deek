@@ -18,9 +18,7 @@ void main() {
     final currentMonth = currentDate.month;
     final nextMonth = currentDate.add(const Duration(days: 30)).month;
 
-    expect(fajrPrayerTimes.any((time) => time.dateTime.month == currentMonth),
-        true);
-    expect(
-        fajrPrayerTimes.any((time) => time.dateTime.month == nextMonth), true);
+    expect(fajrPrayerTimes.any((time) => time.month == currentMonth), true);
+    expect(fajrPrayerTimes.any((time) => time.month == nextMonth), true);
   });
 }

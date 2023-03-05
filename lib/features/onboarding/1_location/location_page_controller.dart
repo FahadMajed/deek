@@ -8,7 +8,7 @@ class LocationViewController extends OnboardingViewController {
 
   @override
   Future<void> onActionButtonPressed() async {
-    await setUserCurrentLocation.call(user).then((updatedUser) {
+    await setUserCurrentLocation.call().then((updatedUser) {
       showNextPage();
       emitData(updatedUser);
     });

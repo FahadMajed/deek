@@ -10,7 +10,7 @@ class EditFajrAlarm extends UseCase<User, EditFajrAlarmRequest> {
 
   @override
   Future<User> call(EditFajrAlarmRequest request) async {
-    final user = request.user;
+    final user = await userRepository.getById("1");
 
     final updatedUser = user.updateAlarms(request.minutesVariant);
 
@@ -24,10 +24,9 @@ class EditFajrAlarm extends UseCase<User, EditFajrAlarmRequest> {
 
 class EditFajrAlarmRequest {
   final int minutesVariant;
-  final User user;
+
   EditFajrAlarmRequest({
     required this.minutesVariant,
-    required this.user,
   });
 }
 

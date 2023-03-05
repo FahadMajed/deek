@@ -1,8 +1,6 @@
 import 'package:deek/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../mocks/notification_service_mock.dart';
-import '../mocks/prayer_time_repo_mock.dart';
 import '../test.dart';
 
 void main() {
@@ -17,7 +15,6 @@ void main() {
   );
   test('should set alarm on fajr athan', () async {
     final request = SetFajrAlarmRequest(
-      user: user,
       minutesVariant: 0,
     );
 
@@ -38,7 +35,6 @@ void main() {
 
   test('should set alarm on fajr athan +5', () async {
     final request = SetFajrAlarmRequest(
-      user: user,
       minutesVariant: 5,
     );
 
@@ -57,7 +53,6 @@ void main() {
 
   test('should set alarm on fajr athan -5', () async {
     final request = SetFajrAlarmRequest(
-      user: user,
       minutesVariant: -5,
     );
 

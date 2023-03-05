@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 
 import 'package:deek/lib.dart';
@@ -7,7 +5,7 @@ import 'package:deek/lib.dart';
 class User {
   final LongLat position;
   final String id;
-  final List<PrayerTime> upcomingAlarms;
+  final List<Alarm> upcomingAlarms;
 
   final int prefferedMinutesVariant;
 
@@ -22,53 +20,39 @@ class User {
 
   bool get isNotDefault => position.lat != 0 && position.lat != 21.0;
 
-  User copyWith({
-    LongLat? position,
-    List<PrayerTime>? upcomingAlarms,
-    int? prefferedMinutesVariant,
-  }) {
-    return User(
-      position: position ?? this.position,
-      upcomingAlarms: upcomingAlarms ?? this.upcomingAlarms,
-      prefferedMinutesVariant:
-          prefferedMinutesVariant ?? this.prefferedMinutesVariant,
-      id: id,
-    );
-  }
+  bool get reachedAlarmLimit => upcomingAlarms.length <= 3;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'position': position.toMap(),
-      'id': id,
-      'upcomingAlarms': upcomingAlarms.map((x) => x.toMap()).toList(),
-      'prefferedMinutesVariant': prefferedMinutesVariant,
-    };
-  }
+  User removeOutdatedAlarms() => copyWith(upcomingAlarms: [
+        for (final alarm in upcomingAlarms)
+          if (alarm.isOutdated == false) alarm
+      ]);
 
-  factory User.fromMap(map) {
-    if (map == null) {
-      return User.empty();
-    }
-    return User(
-      position: LongLat.fromMap(map['position']),
-      id: map['id'] ?? '',
-      prefferedMinutesVariant: map['prefferedMinutesVariant'] ?? 0,
-      upcomingAlarms: List<PrayerTime>.from(
-          map['upcomingAlarms']?.map((x) => PrayerTime.fromMap(x))),
-    );
-  }
+  User turnOffAlarms() => copyWith(upcomingAlarms: []);
 
-  String toJson() => json.encode(toMap());
+  User setFajrAlarms(List<DateTime> fajrTimes, int minutesVariant) {
+    int id = 1;
+    final fajrTimesWithVariant = fajrTimes
+        .map(
+          (time) =>
+              Alarm(dateTime: time, id: id++).applyVariant(minutesVariant),
+        )
+        .where((alarm) => alarm.isOutdated == false)
+        .toList();
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
-
-  User removeOutdatedAlarms() {
     return copyWith(
-        upcomingAlarms: upcomingAlarms
-          ..removeWhere((alarm) => alarm.isOutdated));
+      prefferedMinutesVariant: minutesVariant,
+      upcomingAlarms: fajrTimesWithVariant,
+    );
   }
 
-  bool reachedAlarmLimit() => upcomingAlarms.length <= 3;
+  User updateAlarms(int minutesVariant) {
+    final timesWithoutVariant = _getTimesWithoutVariant();
+    return setFajrAlarms(timesWithoutVariant, minutesVariant);
+  }
+
+  List<DateTime> _getTimesWithoutVariant() => upcomingAlarms
+      .map((time) => time.removeVariant(prefferedMinutesVariant).dateTime)
+      .toList();
 
   @override
   String toString() {
@@ -101,26 +85,39 @@ class User {
         prefferedMinutesVariant.hashCode;
   }
 
-  User turnOffAlarms() => copyWith(upcomingAlarms: []);
-
-  User setFajrAlarms(List<PrayerTime> fajrTimes, int minutesVariant) {
-    final fajrTimesWithVariant = fajrTimes
-        .map((time) => time.applyVariant(minutesVariant))
-        .where((time) => time.isOutdated == false)
-        .toList();
-
-    return copyWith(
-      prefferedMinutesVariant: minutesVariant,
-      upcomingAlarms: fajrTimesWithVariant,
+  User copyWith({
+    LongLat? position,
+    List<Alarm>? upcomingAlarms,
+    int? prefferedMinutesVariant,
+  }) {
+    return User(
+      position: position ?? this.position,
+      upcomingAlarms: upcomingAlarms ?? this.upcomingAlarms,
+      prefferedMinutesVariant:
+          prefferedMinutesVariant ?? this.prefferedMinutesVariant,
+      id: id,
     );
   }
 
-  User updateAlarms(int minutesVariant) {
-    final timesWithoutVariant = _getTimesWithoutVariant();
-    return setFajrAlarms(timesWithoutVariant, minutesVariant);
+  Map<String, dynamic> toMap() {
+    return {
+      'position': position.toMap(),
+      'id': id,
+      'upcomingAlarms': upcomingAlarms.map((x) => x.toMap()).toList(),
+      'prefferedMinutesVariant': prefferedMinutesVariant,
+    };
   }
 
-  List<PrayerTime> _getTimesWithoutVariant() => upcomingAlarms
-      .map((time) => time.removeVariant(prefferedMinutesVariant))
-      .toList();
+  factory User.fromMap(map) {
+    if (map == null) {
+      return User.empty();
+    }
+    return User(
+      position: LongLat.fromMap(map['position']),
+      id: map['id'] ?? '',
+      prefferedMinutesVariant: map['prefferedMinutesVariant'] ?? 0,
+      upcomingAlarms:
+          List<Alarm>.from(map['upcomingAlarms']?.map((x) => Alarm.fromMap(x))),
+    );
+  }
 }

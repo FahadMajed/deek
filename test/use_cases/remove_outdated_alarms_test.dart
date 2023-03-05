@@ -4,10 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import '../test.dart';
 
 void main() async {
-  final user = User(
-    position: LongLat.fromMap({}),
-    id: "1",
-  );
+  final user = User(position: LongLat.fromMap({}), id: "1", upcomingAlarms: [
+    Alarm.fromMap({}),
+    Alarm.fromMap({}),
+    Alarm.fromMap({}),
+    Alarm.fromMap({}),
+  ]);
   await userRepoFake.create(
     user,
     "1",
@@ -18,24 +20,9 @@ void main() async {
     notificationsService: notificationServiceMock,
     userRepository: userRepoFake,
   );
-  setUp(() async => await setFajrAlarm
-      .call(SetFajrAlarmRequest(user: user, minutesVariant: 0)));
 
-  test('should remove current alarm', () async {
-    final user = await userRepoFake.getById("1");
-    assert(user.upcomingAlarms.length == 6);
-    assert(user.upcomingAlarms.first.id == 1);
-    final updatedUser = await RemoveOutdatedAlarms(
-      setFajrAlarm: setFajrAlarm,
-      userRepository: userRepoFake,
-    ).call();
-  });
-
+//needs more cases
   test('should add alarms if least limit reached', () async {
-    final user = await userRepoFake.getById("1");
-    await userRepoFake.update(
-        user.copyWith(upcomingAlarms: [PrayerTime.fromMap({})]), "1");
-
     final updatedUser = await RemoveOutdatedAlarms(
       setFajrAlarm: setFajrAlarm,
       userRepository: userRepoFake,

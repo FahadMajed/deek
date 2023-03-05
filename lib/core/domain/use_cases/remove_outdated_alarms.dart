@@ -17,9 +17,8 @@ class RemoveOutdatedAlarms extends NoRequestUseCase<User> {
     final updatedUser = user.removeOutdatedAlarms();
     await userRepository.update(updatedUser, updatedUser.id);
 
-    if (updatedUser.reachedAlarmLimit()) {
+    if (updatedUser.reachedAlarmLimit) {
       final updatedUser = await setFajrAlarm.call(SetFajrAlarmRequest(
-        user: user,
         minutesVariant: user.prefferedMinutesVariant,
       ));
       return updatedUser;

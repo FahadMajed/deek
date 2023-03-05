@@ -9,8 +9,8 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
   HttpPrayerTimeRepository(this.client);
 
   @override
-  Future<List<PrayerTime>> getFajrTimesFor2Months(LongLat position) async {
-    final List<PrayerTime> fajrPrayerTimes = [];
+  Future<List<DateTime>> getFajrTimesFor2Months(LongLat position) async {
+    final List<DateTime> fajrPrayerTimes = [];
 
     final currentDate = DateTime.now();
     final currentYear = currentDate.year;
@@ -21,7 +21,6 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
         year: currentYear,
         month: currentMonth,
         position: position,
-        idStartsAt: 0,
       ),
     );
 
@@ -34,21 +33,17 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
         year: yearAfterMonth,
         month: monthAfterMonth,
         position: position,
-        idStartsAt: fajrPrayerTimes.length + 1,
       ),
     );
 
     return fajrPrayerTimes;
   }
 
-  Future<List<PrayerTime>> _getFajrTimesForMonth({
+  Future<List<DateTime>> _getFajrTimesForMonth({
     required int year,
     required int month,
     required LongLat position,
-    required int idStartsAt,
   }) async {
-    final List<PrayerTime> fajrPrayerTimesForMonth = [];
-
     final responseForMonth = await client.call(
       RESTOption.get,
       path:
@@ -61,15 +56,7 @@ class HttpPrayerTimeRepository implements PrayerTimeRepository {
       month: month,
     );
 
-    int id = idStartsAt;
-    for (final fajrTime in fajrTimes) {
-      fajrPrayerTimesForMonth.add(PrayerTime(
-        dateTime: fajrTime,
-        id: id++,
-      ));
-    }
-
-    return fajrPrayerTimesForMonth;
+    return fajrTimes;
   }
 
   List<DateTime> _parseReponse(

@@ -1,5 +1,5 @@
 import 'package:deek/lib.dart';
 
 abstract class PrayerTimeRepository {
-  Future<List<PrayerTime>> getFajrTimesFor2Months(LongLat position);
+  Future<List<DateTime>> getFajrTimesFor2Months(LongLat position);
 }
