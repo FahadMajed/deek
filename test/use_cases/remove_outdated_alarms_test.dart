@@ -1,9 +1,7 @@
 import 'package:deek/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'mocks/notification_service_mock.dart';
-import 'mocks/prayer_time_repo_mock.dart';
-import 'mocks/user_repo_mock.dart';
+import '../test.dart';
 
 void main() async {
   final user = User(
@@ -27,7 +25,7 @@ void main() async {
     final user = await userRepoFake.getById("1");
     assert(user.upcomingAlarms.length == 6);
     assert(user.upcomingAlarms.first.id == 1);
-    final updatedUser = await MarkAlarmSeen(
+    final updatedUser = await RemoveOutdatedAlarms(
       setFajrAlarm: setFajrAlarm,
       userRepository: userRepoFake,
     ).call();
@@ -38,7 +36,7 @@ void main() async {
     await userRepoFake.update(
         user.copyWith(upcomingAlarms: [PrayerTime.fromMap({})]), "1");
 
-    final updatedUser = await MarkAlarmSeen(
+    final updatedUser = await RemoveOutdatedAlarms(
       setFajrAlarm: setFajrAlarm,
       userRepository: userRepoFake,
     ).call();

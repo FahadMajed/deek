@@ -1,11 +1,11 @@
 import 'package:deek/lib.dart';
 
 //Called every time app is opened
-class MarkAlarmSeen extends NoRequestUseCase<User> {
+class RemoveOutdatedAlarms extends NoRequestUseCase<User> {
   final UserRepository userRepository;
 
   final SetFajrAlarm setFajrAlarm;
-  MarkAlarmSeen({
+  RemoveOutdatedAlarms({
     required this.userRepository,
     required this.setFajrAlarm,
   });
@@ -28,7 +28,7 @@ class MarkAlarmSeen extends NoRequestUseCase<User> {
   }
 }
 
-final markAlarmSeenPvdr = Provider((ref) => MarkAlarmSeen(
+final markAlarmSeenPvdr = Provider((ref) => RemoveOutdatedAlarms(
       userRepository: ref.read(userRepoPvdr),
       setFajrAlarm: ref.read(setFajrAlarmPvdr),
     ));

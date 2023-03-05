@@ -1,16 +1,18 @@
+import 'package:deek/core/domain/use_cases/edit_fajr_alarms.dart';
 import 'package:deek/features/settings/settings_router.dart';
 import 'package:deek/lib.dart';
 
 class SettingsViewController extends AsyncViewController<User> {
-  late final UserRepository userRepository;
   late final SetFajrAlarm setFajrAlarm;
+  late final EditFajrAlarm editFajrAlarm;
   late final TurnOffAlarms turnOffAlarms;
   late final SetUserCurrentLocation setUserCurrentLocation;
+
   final screenRouter = SettingsRouter();
 
   SettingsViewController(super.read) : super(viewModelPvdr: userPvdr) {
-    userRepository = read(userRepoPvdr);
     setFajrAlarm = read(setFajrAlarmPvdr);
+    editFajrAlarm = read(editFajrAlarmPvdr);
     turnOffAlarms = read(turnOffAlarmsPvdr);
     setUserCurrentLocation = read(setUserLocationPvdr);
   }
@@ -53,6 +55,7 @@ class SettingsViewController extends AsyncViewController<User> {
       );
       emitData(updatedUser);
     }
+    screenRouter.onAlarmSwitched(user.hasAlarms);
   }
 
   void _onEditVariation() {
@@ -71,9 +74,9 @@ class SettingsViewController extends AsyncViewController<User> {
     final userRef = user;
 
     emitLoading();
-    await setFajrAlarm
+    await editFajrAlarm
         .call(
-      SetFajrAlarmRequest(
+      EditFajrAlarmRequest(
         minutesVariant: minutesVariant,
         user: userRef,
       ),

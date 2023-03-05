@@ -47,4 +47,18 @@ class SettingsRouter extends Router {
       pop: true,
     );
   }
+
+  void onAlarmSwitched(bool hasAlarms) {
+    if (hasAlarms) {
+      Toast.success(
+        "تفعلت المنبهات",
+        pop: true,
+      );
+    } else {
+      Toast.success(
+        "تطفت المنبهات",
+        pop: true,
+      );
+    }
+  }
 }

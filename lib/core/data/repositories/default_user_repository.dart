@@ -25,8 +25,8 @@ class DefaultUserRepository implements UserRepository {
 
   @override
   Future<User> getById(String id) async {
-    final user = User.fromMap(_userBox.values.first);
-    print(user);
+    final user = User.fromMap(_userBox.get(id));
+    print(user.position);
     return user;
   }
 
@@ -35,6 +35,8 @@ class DefaultUserRepository implements UserRepository {
 
   @override
   Future<void> update(User object, String id) async {
+    print(object.position);
+
     await _userBox.put(id, object.toMap());
   }
 
@@ -42,8 +44,7 @@ class DefaultUserRepository implements UserRepository {
   Map<String, User> get collection => throw UnimplementedError();
 
   @override
-  // TODO: implement subCollection
   Map<String, void> get subCollection => throw UnimplementedError();
 }
 
-final userRepoPvdr = Provider((ref) => DefaultUserRepository());
+final userRepoPvdr = Provider<UserRepository>((ref) => DefaultUserRepository());

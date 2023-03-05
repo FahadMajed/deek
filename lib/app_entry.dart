@@ -23,7 +23,7 @@ class DeekEntry extends ConsumerWidget {
       theme: getThemeData(),
       home: user.isLoading
           ? const LoadingScaffold()
-          : user.value != User.empty()
+          : user.value?.isNotDefault ?? false
               ? const HomeScreen()
               : const DeekLanding(),
     );

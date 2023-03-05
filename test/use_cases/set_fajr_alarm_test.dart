@@ -1,9 +1,9 @@
 import 'package:deek/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'mocks/notification_service_mock.dart';
-import 'mocks/prayer_time_repo_mock.dart';
-import 'mocks/user_repo_mock.dart';
+import '../mocks/notification_service_mock.dart';
+import '../mocks/prayer_time_repo_mock.dart';
+import '../test.dart';
 
 void main() {
   final user = User(

@@ -2,7 +2,7 @@ import 'package:deek/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
   setUp(() async => WidgetsFlutterBinding.ensureInitialized());

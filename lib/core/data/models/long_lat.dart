@@ -13,7 +13,7 @@ class LongLat {
     };
   }
 
-  factory LongLat.fromMap(Map<String, dynamic> map) {
+  factory LongLat.fromMap(map) {
     return LongLat(
       map['long']?.toDouble() ?? 0.0,
       map['lat']?.toDouble() ?? 0.0,

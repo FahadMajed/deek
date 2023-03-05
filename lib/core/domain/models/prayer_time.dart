@@ -21,7 +21,8 @@ class PrayerTime {
   }
 
   @override
-  String toString() => 'PrayerTime(id: $id)';
+  String toString() =>
+      'PrayerTime(id: $id , h: ${dateTime.hour},m: ${dateTime.minute})';
 
   Map<String, dynamic> toMap() {
     return {
@@ -41,4 +42,22 @@ class PrayerTime {
 
   factory PrayerTime.fromJson(String source) =>
       PrayerTime.fromMap(json.decode(source));
+
+  PrayerTime removeVariant(int minutesVariant) {
+    return PrayerTime(
+        id: id,
+        dateTime: dateTime.add(
+          Duration(minutes: -1 * minutesVariant),
+        ));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PrayerTime && other.dateTime == dateTime && other.id == id;
+  }
+
+  @override
+  int get hashCode => dateTime.hashCode ^ id.hashCode;
 }

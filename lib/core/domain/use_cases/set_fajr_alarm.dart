@@ -1,5 +1,6 @@
 import 'package:deek/lib.dart';
 
+// could be optimised by caching the prayer times
 class SetFajrAlarm extends UseCase<User, SetFajrAlarmRequest> {
   final PrayerTimeRepository prayerTimeRepository;
   final NotificationsService notificationsService;

@@ -20,6 +20,8 @@ class User {
 
   bool get hasAlarms => upcomingAlarms.isNotEmpty;
 
+  bool get isNotDefault => position.lat != 0 && position.lat != 21.0;
+
   User copyWith({
     LongLat? position,
     List<PrayerTime>? upcomingAlarms,
@@ -48,7 +50,7 @@ class User {
       return User.empty();
     }
     return User(
-      position: LongLat.fromMap(map['longLat'] ?? {"long": 21, "lat": 21}),
+      position: LongLat.fromMap(map['position']),
       id: map['id'] ?? '',
       prefferedMinutesVariant: map['prefferedMinutesVariant'] ?? 0,
       upcomingAlarms: List<PrayerTime>.from(
@@ -112,4 +114,13 @@ class User {
       upcomingAlarms: fajrTimesWithVariant,
     );
   }
+
+  User updateAlarms(int minutesVariant) {
+    final timesWithoutVariant = _getTimesWithoutVariant();
+    return setFajrAlarms(timesWithoutVariant, minutesVariant);
+  }
+
+  List<PrayerTime> _getTimesWithoutVariant() => upcomingAlarms
+      .map((time) => time.removeVariant(prefferedMinutesVariant))
+      .toList();
 }

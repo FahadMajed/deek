@@ -25,4 +25,9 @@ void main() {
     final updatedUser = await hiveUserRepo.getById("1");
     expect(updatedUser.position.long, 21);
   });
+
+  test('should get updated user in box', () async {
+    final updatedUser = await hiveUserRepo.getById("1");
+    expect(updatedUser.position.long, 21);
+  });
 }
