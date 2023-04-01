@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:deek/core/ui/theme/theme.dart';
 // add icon?
 
-enum FilledButtonStyle { primary, accent }
+enum FilledBottonStyle { primary, accent }
 
-class FilledButton extends StatelessWidget {
-  const FilledButton({
+class FilledBotton extends StatelessWidget {
+  const FilledBotton({
     Key? key,
     required this.title,
-    this.style = FilledButtonStyle.primary,
+    this.style = FilledBottonStyle.primary,
     this.isLoading = false,
     required this.onPressed,
   }) : super(key: key);
   final bool isLoading;
   final String title;
   final Function() onPressed;
-  final FilledButtonStyle style;
+  final FilledBottonStyle style;
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: style == FilledButtonStyle.primary
+      color: style == FilledBottonStyle.primary
           ? Theme.of(context).primaryColor
           : darkBlue100,
       borderRadius: radius,
@@ -33,12 +33,12 @@ class FilledButton extends StatelessWidget {
                 color: Colors.white,
               )
             : Text(title,
-                style: style == FilledButtonStyle.primary
-                    ? filledButtonPrimary.copyWith(
+                style: style == FilledBottonStyle.primary
+                    ? FilledBottonPrimary.copyWith(
                         fontSize: 16,
                         color: Theme.of(context).canvasColor,
                       )
-                    : filledButtonAccent),
+                    : FilledBottonAccent),
       ),
     );
   }

@@ -22,12 +22,17 @@ class User {
 
   bool get reachedAlarmLimit => upcomingAlarms.length <= 3;
 
-  User removeOutdatedAlarms() => copyWith(upcomingAlarms: [
+  User setLocation(LongLat position) => _copyWith(position: position);
+
+  User setMinutesVariant(int minutesVariant) =>
+      _copyWith(prefferedMinutesVariant: minutesVariant);
+
+  User removeOutdatedAlarms() => _copyWith(upcomingAlarms: [
         for (final alarm in upcomingAlarms)
           if (alarm.isOutdated == false) alarm
       ]);
 
-  User turnOffAlarms() => copyWith(upcomingAlarms: []);
+  User turnOffAlarms() => _copyWith(upcomingAlarms: []);
 
   User setFajrAlarms(List<DateTime> fajrTimes, int minutesVariant) {
     int id = 1;
@@ -39,7 +44,7 @@ class User {
         .where((alarm) => alarm.isOutdated == false)
         .toList();
 
-    return copyWith(
+    return _copyWith(
       prefferedMinutesVariant: minutesVariant,
       upcomingAlarms: fajrTimesWithVariant,
     );
@@ -85,7 +90,7 @@ class User {
         prefferedMinutesVariant.hashCode;
   }
 
-  User copyWith({
+  User _copyWith({
     LongLat? position,
     List<Alarm>? upcomingAlarms,
     int? prefferedMinutesVariant,

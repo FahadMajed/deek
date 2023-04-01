@@ -38,7 +38,7 @@ class _HomeScreen extends ViewState<HomeScreen, AsyncValue<HomeViewModel>,
           ),
           sizedHeight48,
           sizedHeight48,
-          FilledButton(
+          FilledBotton(
             title: "تعديل",
             onPressed: viewController.onEdit,
           ),

@@ -34,10 +34,10 @@ class EmptyStateContainer extends StatelessWidget {
           size: iconSize48,
         ),
         sizedHeight24,
-        FilledButton(
+        FilledBotton(
           title: buttonTitle,
           onPressed: onButtonPressed,
-          style: FilledButtonStyle.accent,
+          style: FilledBottonStyle.accent,
         )
       ],
     );

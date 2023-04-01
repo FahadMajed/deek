@@ -7,12 +7,14 @@ import '../test.dart';
 void main() {
   DateTime getDate({required int minute}) => DateTime(2222, 1, 1, 5, minute);
 
-  final user = User.empty().copyWith(
+  final user = User(
+    id: "1",
     upcomingAlarms: [
       Alarm(dateTime: getDate(minute: 10), id: 1),
       Alarm(dateTime: getDate(minute: 12), id: 2),
     ],
     prefferedMinutesVariant: 0,
+    position: LongLat(20, 20),
   );
 
   setUp(() async {
@@ -46,7 +48,7 @@ void main() {
   });
 
   test('should change from -15 to 0', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: -15), "1");
+    await userRepoFake.update(user.setMinutesVariant(-15), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: 0,
     );
@@ -59,7 +61,7 @@ void main() {
   });
 
   test('should change from 15 to 0', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: 15), "1");
+    await userRepoFake.update(user.setMinutesVariant(15), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: 0,
     );
@@ -72,7 +74,7 @@ void main() {
   });
 
   test('should change from 15 to 10', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: 15), "1");
+    await userRepoFake.update(user.setMinutesVariant(15), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: 10,
     );
@@ -85,7 +87,7 @@ void main() {
   });
 
   test('should change from 15 to -10', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: 15), "1");
+    await userRepoFake.update(user.setMinutesVariant(15), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: -10,
     );
@@ -98,7 +100,7 @@ void main() {
   });
 
   test('should change from -15 to -10', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: -15), "1");
+    await userRepoFake.update(user.setMinutesVariant(-15), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: -10,
     );
@@ -110,7 +112,7 @@ void main() {
     ]);
   });
   test('should change from -10 to -15', () async {
-    await userRepoFake.update(user.copyWith(prefferedMinutesVariant: -10), "1");
+    await userRepoFake.update(user.setMinutesVariant(-10), "1");
     final request = EditFajrAlarmRequest(
       minutesVariant: -15,
     );

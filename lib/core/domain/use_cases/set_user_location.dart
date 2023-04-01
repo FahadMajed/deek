@@ -13,7 +13,8 @@ class SetUserCurrentLocation extends NoRequestUseCase<User> {
     final user = await userRepository.getById("1");
 
     final position = await locationRepository.getCurrentPosition();
-    final updatedUser = user.copyWith(position: position);
+
+    final updatedUser = user.setLocation(position);
 
     await userRepository.update(updatedUser, user.id);
     return updatedUser;

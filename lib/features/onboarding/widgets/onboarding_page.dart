@@ -31,7 +31,7 @@ class OnboardingPage extends StatelessWidget {
         sizedHeight48,
         widget ?? Container(),
         sizedHeight32,
-        FilledButton(
+        FilledBotton(
           title: buttonTitle,
           onPressed: onPressed,
         ),

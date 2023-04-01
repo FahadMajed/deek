@@ -23,11 +23,11 @@ void main() {
     assert(user.position.long != 20);
     await hiveUserRepo.update(User(position: LongLat(20, 20), id: "1"), "1");
     final updatedUser = await hiveUserRepo.getById("1");
-    expect(updatedUser.position.long, 21);
+    expect(updatedUser.position.long, 20);
   });
 
   test('should get updated user in box', () async {
     final updatedUser = await hiveUserRepo.getById("1");
-    expect(updatedUser.position.long, 21);
+    expect(updatedUser.position.long, 20);
   });
 }

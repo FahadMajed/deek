@@ -33,7 +33,7 @@ class DeekLanding extends ConsumerWidget {
         const Spacer(
           flex: 2,
         ),
-        FilledButton(
+        FilledBotton(
           title: "ابدأ!",
           onPressed: viewController.onStart,
         ),

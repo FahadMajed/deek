@@ -28,12 +28,12 @@ const textButton = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const filledButtonPrimary = TextStyle(
+const FilledBottonPrimary = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,
 );
 
-const filledButtonAccent = TextStyle(
+const FilledBottonAccent = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w600,
 );

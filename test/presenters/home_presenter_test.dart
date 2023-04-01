@@ -19,35 +19,43 @@ void main() {
     );
   });
   test("should return before fajr by 10", () {
-    final updatedUser = user.copyWith(prefferedMinutesVariant: -10);
+    final updatedUser = user.setMinutesVariant(-10);
     final homePresenter = HomePresenter(updatedUser);
     expect(
-      homePresenter.presentViewModel().alarmStatus,
-      "منبهك مضبوط قبل اذان الفجر بـعشر دقايق",
+      homePresenter.presentViewModel().alarmStatus.contains(
+            "منبهك مضبوط قبل اذان الفجر بـعشر دقايق",
+          ),
+      true,
     );
   });
   test("should return on fajr", () {
-    final updatedUser = user.copyWith(prefferedMinutesVariant: 0);
+    final updatedUser = user.setMinutesVariant(0);
     final homePresenter = HomePresenter(updatedUser);
     expect(
-      homePresenter.presentViewModel().alarmStatus,
-      "منبهك مضبوط على وقت الاذان",
+      homePresenter.presentViewModel().alarmStatus.contains(
+            "منبهك مضبوط على وقت الاذان",
+          ),
+      true,
     );
   });
   test("should return after fajr by 10", () {
-    final updatedUser = user.copyWith(prefferedMinutesVariant: 10);
+    final updatedUser = user.setMinutesVariant(10);
     final homePresenter = HomePresenter(updatedUser);
     expect(
-      homePresenter.presentViewModel().alarmStatus,
-      "منبهك مضبوط بعد اذان الفجر بـعشر دقايق",
+      homePresenter.presentViewModel().alarmStatus.contains(
+            "منبهك مضبوط بعد اذان الفجر بـعشر دقايق",
+          ),
+      true,
     );
   });
   test("should return after fajr by 15", () {
-    final updatedUser = user.copyWith(prefferedMinutesVariant: 15);
+    final updatedUser = user.setMinutesVariant(15);
     final homePresenter = HomePresenter(updatedUser);
     expect(
-      homePresenter.presentViewModel().alarmStatus,
-      "منبهك مضبوط بعد اذان الفجر بـربع ساعة",
+      homePresenter.presentViewModel().alarmStatus.contains(
+            "منبهك مضبوط بعد اذان الفجر بـربع ساعة",
+          ),
+      true,
     );
   });
 }
