@@ -4,10 +4,9 @@ This is an automated Fajr alarm app that schedules local push notifications of t
 
 ## Features
 
-- Automatically detects the user's location and schedules local push notifications for prayer times.
-- Allows users to set custom notification times and choose which prayers to receive notifications for.
-- Provides a list of prayer times for the user's location.
-- Displays a countdown timer for the next prayer time.
+- Schedule Alarms: Automatically detects the user's location and schedules local push notifications for prayer times.
+- Minutes Variation: Allows users to set custom notification times and choose which time to receive notifications in.- 
+- Be Aware: Displays a countdown timer for the next prayer time.
 
 ## Technologies Used
 
